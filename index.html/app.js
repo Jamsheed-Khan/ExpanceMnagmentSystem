@@ -19,7 +19,13 @@ function signup(){
     }
 allUsers.push(obj)
 localStorage.setItem('Users',JSON.stringify(allUsers))
-    location.href ='./welcome.html'
+location.href ='./welcome.html'
+
+Swal.fire(
+    'Acount create successfully!',
+    'You clicked the button!',
+    'success'
+  )
 }
 
 
@@ -31,12 +37,13 @@ function signin(){
         return data.email === email && data.passward === passward
     })
     if(filterUsers.length){
-        location.href = './expance.html'
         Swal.fire(
-            'Acount create successfully!',
+            'Login successfully!',
             'You clicked the button!',
             'success'
-          )
+          )  
+        location.href = './expance.html'
+    
     }
     else{
         Swal.fire({
