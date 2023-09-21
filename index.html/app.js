@@ -31,10 +31,27 @@ function signin(){
         return data.email === email && data.passward === passward
     })
     if(filterUsers.length){
-       location.href = './dummy.html'
+        location.href = './expance.html'
+        Swal.fire(
+            'Acount create successfully!',
+            'You clicked the button!',
+            'success'
+          )
     }
     else{
-        alert('please signup ')
+        Swal.fire({
+            title: 'Oops..,Please signup first',
+            width: 600,
+            padding: '3em',
+            color: '#716add',
+            background: '#fff url(/images/trees.png)',
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("/images/nyan-cat.gif")
+              left top
+              no-repeat
+            `
+          })
     }
 }
 
