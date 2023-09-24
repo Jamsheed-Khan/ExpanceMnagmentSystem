@@ -14,37 +14,43 @@
     background-image:url(./bg.jpg) ;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: cover;
+    background-position: center;
      animation: animatebg 5s linear infinite;
   }
   
   h1, h2 {
     text-align: center;
     color: #ffff;
+    margin-bottom: 30px;
   }
   
   .input-section {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content:center;
     align-items: center;
-    padding: 10px;
+    width: 100%;
+    padding: 5px;
     color: #ffff;
   }
   
   .input-section label {
     font-weight: bold;
+    /* margin-bottom: 10px; */
     color: #ffff;
-    margin-right: 10px;
+    align-items: center;
+    margin-right: 15px;
   }
   
   .input-section input[type="number"], .input-section input[type="date"] {
     padding: 5px;
-    margin-right: 10px;
+    /* margin-bottom: 15px; */
+    margin-right: 15px;
   }
   .li{
     padding: 5px;
     margin-right: 10px;
+    /* margin-bottom: 10px; */
   }
   
   .input-section button {
@@ -52,6 +58,8 @@
     background-color: #4CAF50;
     color: white;
     border: none;
+    width:150px;
+    /* margin-bottom: 20px; */
     border-radius: 4px;
     cursor: pointer;
   }
@@ -99,6 +107,49 @@
     text-align: center;
     color: #ffff;
 }
+@media (max-width:659px){
+  .input-section {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    color: #ffff;
+  }
+  .input-section label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffff;
+    align-items: center;
+    margin-right: 15px;
+  }
+  
+  .input-section input[type="number"], .input-section input[type="date"] {
+    padding: 5px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+  }
+  .li{
+    padding: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .input-section button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    width:150px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+
+}
   
 </style>
 <body>
@@ -121,6 +172,7 @@
         <label for="date-input">Date:</label>
         <input type="date" id="date-input">
         <button id="add-btn">Add</button>
+        <!-- <button onclick="deleteAll()" id="del-btn">Delete All</button> -->
     </div>
     <div class="expenses-list">
         <h2>Expenses List</h2>
@@ -154,17 +206,17 @@
         let expenses = [];
 let totalAmount = 0;
 
-const categorySelect = document.getElementById('category-select');
-const amountInput = document.getElementById('amount-input');
-const dateInput = document.getElementById('date-input');
-const addBtn = document.getElementById('add-btn');
-const expensesTableBody = document.getElementById('expnese-table-body');
-const totalAmountCell = document.getElementById('total-amount');
+var categorySelect = document.getElementById('category-select');
+var amountInput = document.getElementById('amount-input');
+var dateInput = document.getElementById('date-input');
+var addBtn = document.getElementById('add-btn');
+var expensesTableBody = document.getElementById('expnese-table-body');
+var totalAmountCell = document.getElementById('total-amount');
 
 addBtn.addEventListener('click', function() {
-    const category = categorySelect.value;
-    const amount = Number(amountInput.value);
-    const date = dateInput.value;
+    var category = categorySelect.value;
+    var amount = Number(amountInput.value);
+    var date = dateInput.value;
 
     if (category === '') {
          
@@ -203,13 +255,13 @@ Swal.fire({
     totalAmount += amount;
     totalAmountCell.textContent = totalAmount;
 
-    const newRow = expensesTableBody.insertRow();
+    var newRow = expensesTableBody.insertRow();
 
-    const categoryCell = newRow.insertCell();
-    const amountCell = newRow.insertCell();
-    const dateCell = newRow.insertCell();
-    const deleteCell = newRow.insertCell();
-    const deleteBtn = document.createElement('button');
+    var categoryCell = newRow.insertCell();
+    var amountCell = newRow.insertCell();
+    var dateCell = newRow.insertCell();
+    var deleteCell = newRow.insertCell();
+    var deleteBtn = document.createElement('button');
 
     deleteBtn.textContent = 'Delete';
     deleteBtn.classList.add('delete-btn');
@@ -222,7 +274,7 @@ Swal.fire({
         expensesTableBody.removeChild(newRow);
     });
 
-    const expense = expenses[expenses.length - 1];
+    var expense = expenses[expenses.length - 1];
     categoryCell.textContent = expense.category;
     amountCell.textContent = expense.amount;
     dateCell.textContent = expense.date;
@@ -230,16 +282,30 @@ Swal.fire({
 
 });
 
-for (const expense of expenses) {
+
+
+
+
+
+
+for (var expense of expenses) {
     totalAmount += expense.amount;
     totalAmountCell.textContent = totalAmount;
 
-    const newRow = expensesTableBody.inserRow();
-    const categoryCell = newRow.insertCell();
-    const amountCell = newRow.insertCell();
-    const dateCell = newRow.insertCell();
-    const deleteCell = newRow.insertCell();
-    const deleteBtn = document.createElement('button');
+    var newRow = expensesTableBody.inserRow();
+    var categoryCell = newRow.insertCell();
+    var amountCell = newRow.insertCell();
+    var dateCell = newRow.insertCell();
+    var deleteCell = newRow.insertCell();
+    var deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.addEventListener('click', function() {
+        expenses.splice(expenses.indexOf(expense), 1)});
+    
+        totalAmount -= expense.amount;
+        totalAmountCell.textContent = totalAmount;
+        var deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
     deleteBtn.classList.add('delete-btn');
     deleteBtn.addEventListener('click', function() {
@@ -248,13 +314,22 @@ for (const expense of expenses) {
         totalAmount -= expense.amount;
         totalAmountCell.textContent = totalAmount;
 
+
+
         expensesTableBody.removeChild(newRow);
     });
     categoryCell.textContent = expense.category;
     amountCell.textContent = expense.amount;
     dateCell.textContent = expense.date;
     deleteCell.appendChild(deleteBtn);
-}
+  }
+
+
+
+
+
+
+
     </script>
 </body>
 </html>
